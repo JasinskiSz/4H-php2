@@ -40,11 +40,16 @@
                     <!-- <option value=""></option> -->
                     <!-- efekt działania skryptu 2 -->
                 </select>
+                <br>
                 <label for="malowanie">malowanie</label>
                 <input type="radio" name="metody" id="malowanie" checked>
 
+                <br>
+
                 <label for="gipsowanie">gipsowanie</label>
                 <input type="radio" name="metody" id="gipsowanie">
+
+                <br>
 
                 <button type="submit">Szukaj klientów</button>
             </form>
