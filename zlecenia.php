@@ -1,3 +1,7 @@
+<?php
+$polaczenie = new mysqli("localhost", "root", "", "remonty");
+?>
+
 <!DOCTYPE html>
 <html lang="pl">
 
@@ -26,12 +30,31 @@
             <h2>Dla klientów</h2>
             <form action="zlecenia.php" method="post">
                 <label for="pracownicy">Ilu co najmniej pracowników potrzebujesz?</label>
-                <input type="number" id="pracownicy">
+                <input type="number" name="pracownicy" id="pracownicy">
                 <!-- <input type="submit" value="Szukaj firm"> -->
                 <button type="submit">Szukaj firm</button>
             </form>
 
             <!-- efekt działania skryptu 1 -->
+            <?php
+            if (!empty($_POST["pracownicy"])) {
+
+                $liczbaPracownikow = $_POST["pracownicy"];
+                // echo $_POST["pracownicy"];
+                $zapytanie = "SELECT nazwa_firmy, liczba_pracownikow 
+                FROM wykonawcy WHERE liczba_pracownikow >= $liczbaPracownikow;";
+
+                $wynik_zapytania = $polaczenie->query($zapytanie);
+
+                while ($wiersz = $wynik_zapytania->fetch_assoc()) {
+                    echo "<p>";
+                    echo $wiersz["nazwa_firmy"] . ", " . $wiersz["liczba_pracownikow"] . " pracowników";
+                    echo "</p>";
+                }
+            }
+
+
+            ?>
         </section>
         <section id="srodkowa">
             <h2>Dla wykonawców</h2>
@@ -66,3 +89,9 @@
 </body>
 
 </html>
+
+<?php
+$polaczenie->close();
+// $simple_select = "SELECT * FROM klienci";
+// $polaczenie->query($simple_select);
+?>
